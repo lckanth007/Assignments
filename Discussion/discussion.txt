@@ -3,3 +3,6 @@ https://stackoverflow.com/questions/10586153/split-string-into-an-array-in-bash
 https://markhneedham.com/blog/2016/06/19/unix-split-string-using-separator/
 
 https://stackoverflow.com/questions/1975849/how-to-split-a-line-into-words-separated-by-one-or-more-spaces-in-bash
+
+
+https://github.com/bigdatarajatpancholi/Hive-Export-Shell-Script/edit/master/j800_execute_hive_export_table.sh
