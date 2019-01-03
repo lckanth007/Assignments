@@ -1,0 +1,48 @@
+import org.apache.spark.{SparkConf, SparkContext}
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+
+
+object SparjInjectionLog1 {
+  def main(args: Array[String]): Unit = {
+    val conf = new SparkConf()
+    conf.setMaster("local")
+    conf.setAppName("SparkInjectionLog")
+    conf.set("spark.hadoop.validateOutputSpecs", "false")
+
+    var Exitcode = 0
+    val StartedTime = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm:ss").format(LocalDateTime.now)
+    val log = ("Started", StartedTime)
+    var LogList = List(log.toString().replace("(","").replace(")",""))
+    val sc = new SparkContext(conf)
+
+    try {
+
+
+      val processingTime = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm:ss").format(LocalDateTime.now)
+      val log1 = ("inProcessing", processingTime)
+      LogList = log1.toString().replace("(","").replace(")","") :: LogList
+      sc.makeRDD(Array(1, 2, 3, 4, 5, 6)).saveAsTextFile("/Users/cklekkala/IdeaProjects/untitled1/data1.txt")
+
+      val completedTime = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm:ss").format(LocalDateTime.now)
+      val log2 = ("Completed", completedTime)
+      LogList = log2.toString().replace("(","").replace(")","") :: LogList
+
+    } catch {
+
+      case ex: Throwable => println("File not found")
+        val failedTime = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm:ss").format(LocalDateTime.now)
+
+        Exitcode = 1
+        val log3 = ("failed", failedTime)
+        LogList = log3.toString().replace("(","").replace(")","") :: LogList
+    }
+
+    finally {
+      sc.parallelize(LogList).saveAsTextFile("/Users/cklekkala/IdeaProjects/untitled1/injecti.log")
+      System.exit(Exitcode)
+    }
+
+  }
+
+}
