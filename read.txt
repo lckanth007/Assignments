@@ -1,3 +1,0 @@
-https://stackoverflow.com/questions/10586153/split-string-into-an-array-in-bash
-
-https://markhneedham.com/blog/2016/06/19/unix-split-string-using-separator/
